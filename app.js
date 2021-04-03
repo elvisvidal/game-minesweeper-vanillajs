@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const grid = document.querySelector('.grid');
   let width = 10;
   let bombAmount = 20;
+  let flags = 0;
   let squares = [];
   let isGameOver = false;
 
@@ -24,6 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
       square.addEventListener('click', function(e) {
         click(square);
       });
+      square.oncontextmenu = function(e) {
+        e.preventDefault();
+        addFlag(square);
+      }
     }
 
     // add numbers
@@ -54,6 +59,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   createBoard();
+
+  // add Flag with right click
+  function addFlag(square) {
+    if (isGameOver) return;
+    if (!square.classList.contains('checked') && (flags < bombAmount)) {
+      if (!square.classList.contains('flag')) {
+        square.classList.add('flag')
+        square.innerHTML = '🚩';
+        flags++;
+      } else {
+        square.classList.remove('flag');
+        square.innerHTML = '';
+        flags--;
+      }
+    }
+  }
 
   // click on square actions
   function click(square) {
