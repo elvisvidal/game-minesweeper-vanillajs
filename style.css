@@ -12,9 +12,5 @@
 }
 
 .checked {
-  background-color: red;
-}
-
-.bomb {
-  background-color: orange;
+  background-color: lightgray;
 }
